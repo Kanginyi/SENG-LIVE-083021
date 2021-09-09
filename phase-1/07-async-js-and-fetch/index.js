@@ -91,10 +91,27 @@ function deletePoke(card) {
   card.remove();
 }
 
+// This shit will not work rn because my dumbass fucked up the db.json thing WOOOOO
+
+function getPokemons() {
+  //Making a GET request
+  fetch('https://locathost:3000/pokemons')   //Returns a Promise
+    // We want to take the Promise and turn it into JSON
+    .then(function(response) {
+      return response.json();  //This shit will return another Promise
+    })
+    .then(function(pokemonsArray) {  //Start by naming it "data", then change it after when it's more solidified what the fuck it is 
+      pokemonsArray.forEach(function(pokemon) {     //Also NEVER check that the Promise is fulfilled, make sure to ALWAYS ALWAYS ALWAYS CHECK that it's working
+        renderPokemon(pokemon);
+      })   
+    }) 
+}
+
 function init() {
-  pokemons.forEach(function (pokemon) {
-    renderPokemon(pokemon);
-  });
+  // pokemons.forEach(function (pokemon) {   //Later when all your shit works, you can replace this function with the getPokemons() from above, you fucking dumbass
+  //   renderPokemon(pokemon);
+  // });
+  getPokemons();
   pokeForm.addEventListener("submit", createPokemon);
 }
 
