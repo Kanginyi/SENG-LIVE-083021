@@ -43,9 +43,21 @@ function createPokemon(event) {
     name: name,
     img: img,
     likes: 0,
-    id: 6, // NEEDS TO CHANGE
   };
-  renderPokemon(pokemon);
+
+  const configObj = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json"
+    },
+    body: JSON.stringify(pokemon)
+  }
+
+  fetch("http://localhost:3000/pokemons", configObj)
+  .then(resp => resp.json())
+  .then(pokemon => renderPokemon(pokemon));
+
   pokeForm.reset();
 }
 
