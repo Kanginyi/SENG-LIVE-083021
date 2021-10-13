@@ -1,10 +1,9 @@
-PIZZAS = [] # constant variable / global variable 
+PIZZAS = [] 
 def init
   puts "Welcome to the lean, mean Pizza Machine App!"
   puts "Tell us your name: "
   user = gets.strip
   puts "Awesome, #{user.capitalize}, What would you like to do?"
-  # need to invoke menu list methods
   menu_options
   menu_selection
   goodbye
@@ -19,7 +18,6 @@ end
 
 def menu_selection
   selection = gets.strip
-  # Need to add some control flow based on users menu selection
   until selection == 'exit'
     if selection == '1'
       create_pizza
@@ -40,29 +38,15 @@ def create_pizza
   toppings = gets.strip
   puts "Describe this pizza: "
   desc = gets.strip 
-
   pizza = {
     name: name,
     toppings: toppings,
     desc: desc
   }
 
-  LIST << pizza
-
-  pizza
-  # need to return a pizza hash
-  pizza = {
-    name: name,
-    toppings: toppings,
-    desc: desc
-  }
-
-  pizza_confirmation(pizza) # argument: passing pizza hash to be used in pizza_confirmation
-
+  pizza_confirmation(pizza) 
   PIZZAS << pizza 
-
   pizza 
-
 end 
 
 def pizza_confirmation(pizza)
@@ -72,40 +56,14 @@ def pizza_confirmation(pizza)
   puts "Desc: #{pizza[:desc]}"
 end 
 
-# Currently there is not a method to print the list of created pizzas. In order to complete this:
-# 1. Think about a way to store and save the pizzas a user creates
-# 2. How can this collection be used to print a list of all of the stored pizzas
-
 def created_pizzas
-<<<<<<< HEAD
-  # iterating through this array, to access the elements in the array
-  # so let's use an iterator method: .each
-
-  PIZZALIST.each do |pizza|
-    # where we write logic to do something with each element
-    # pizza is a hash
+  PIZZAS.each do |pizza| 
     puts "Name: #{pizza[:name]}"
     puts "Toppings: #{pizza[:toppings]}"
     puts "Desc: #{pizza[:desc]}"
-  end
-end
-=======
-  # if we have an array, want to access the elements in the array what do we do?
-
-  PIZZAS.each do |pizza| # block variable
-    # pizza is a hash 
-    puts "Name: #{pizza[:name]}"
-    puts "Toppings: #{pizza[:toppings]}"
-    puts "Desc: #{pizza[:desc]}"
-    # where we writ elogic to do something with each element 
   end 
-
-  # PIZZAS.forEach((pizza) => {}) just like JS 
 end 
->>>>>>> 56f8a7339006a6a0e6de2b446ca211da6e083763
 
 def goodbye
   puts "Come back when you get hungry!!!"
 end 
-
-init
