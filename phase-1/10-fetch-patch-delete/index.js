@@ -29,7 +29,7 @@ function renderPokemon(pokemon) {
   const deleteBttn = document.createElement("button");
   deleteBttn.className = "delete-bttn";
   deleteBttn.textContent = "Delete";
-  deleteBttn.addEventListener("click", () => deletePoke(pokeCard));
+  deleteBttn.addEventListener("click", () => deletePoke(pokemon, pokeCard));
 
   pokeCard.append(pokeImg, pokeName, pokeLikes, likesNum, likeBttn, deleteBttn);
   pokeContainer.appendChild(pokeCard);
@@ -67,10 +67,40 @@ function createPokemon(event) {
 function increaseLikes(pokemon, likesNum) {
   ++pokemon.likes;
   likesNum.textContent = pokemon.likes;
+
+  //Now we're here trying to add another layer that persists these updates
+  
+  //Create an endpoint that includes the id
+  //This is an optimistic rendering, it doesn't have any of then .then
+  //Here, we're also updating our DOM on line 69 BEFORE we get the server request
+  fetch(`${BASE_URL}/${pokemon.id}`, {
+    method: "PATCH",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    //Body here is only going to pass in the properties that are being updated
+    body: JSON.stringify({
+      likes: pokemon.likes
+    })
+  })
 }
 
-function deletePoke(card) {
+function deletePoke(pokemon, card) {
   card.remove();
+
+  //Optimistic
+  fetch(`${BASE_URL}/${pokemon.id}`, {
+    method: "DELETE",
+  })
+
+  //Pessimistic
+  // fetch(`${BASE_URL}/${pokemon.id}`, {
+  //   method: "DELETE"
+  // })
+  // .then(resp => resp.json())
+  // .then(data => console.log(data));
+  // //The data will return an empty object, since we're clearing out an object
 }
 
 function getPokemons() {

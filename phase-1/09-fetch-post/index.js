@@ -84,6 +84,15 @@ function getPokemons() {
 function init() {
   getPokemons();
   pokeForm.addEventListener("submit", createPokemon);
+
+  const commentForm = document.querySelector("#comment-form");
+  commentForm.addEventListener("submit", submitFunction);
+}
+
+function submitFunction() {
+   event.preventDefault();
+
+   event.target.reset();
 }
 
 init();
