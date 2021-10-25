@@ -10,12 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_18_184556) do
+ActiveRecord::Schema.define(version: 2021_10_19_192015) do
 
   create_table "donations", force: :cascade do |t|
     t.integer "amount"
     t.integer "date"
     t.boolean "completed"
+    t.integer "organization_id"
+    t.integer "donor_id"
+  end
+
+  create_table "donors", force: :cascade do |t|
+    t.string "name"
   end
 
   create_table "organizations", force: :cascade do |t|
